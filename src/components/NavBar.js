@@ -1,8 +1,12 @@
+import { NavLink, useNavigate } from "react-router-dom";
+
 const NavBar = () => {
   return (
     <nav className="flex items-center justify-between flex-wrap bg-blue-500 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <span className="font-semibold text-2xl tracking-tight">Chat Fire</span>
+        <NavLink className="font-semibold text-2xl tracking-tight" to="/">
+          Chat
+        </NavLink>
       </div>
       <div className="block lg:hidden">
         <button className="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
@@ -18,18 +22,18 @@ const NavBar = () => {
       </div>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-lg lg:flex-grow ">
-          <a
-            href="#responsive-header"
+          <NavLink
             className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+            to="/login"
           >
             Login
-          </a>
-          <a
-            href="#responsive-header"
+          </NavLink>
+          <NavLink
             className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+            to="/register"
           >
             Register
-          </a>
+          </NavLink>
           <button className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white">
             Logout
           </button>
