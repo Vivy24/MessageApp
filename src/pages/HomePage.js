@@ -1,7 +1,7 @@
-import React from "react";
+import NotAuthorize from "../components/home/NotAuthorize";
 
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return <NotAuthorize />;
 };
 
 export default HomePage;

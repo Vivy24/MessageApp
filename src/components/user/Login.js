@@ -28,6 +28,10 @@ const Login = () => {
   };
   return (
     <div className="w-full max-w-xs container my-20">
+      <h1 className="font-bold text-2xl text-center text-blue-500 mb-3">
+        Login
+      </h1>
+
       <form
         onSubmit={submitHandler}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
