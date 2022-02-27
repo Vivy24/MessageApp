@@ -1,6 +1,12 @@
 import { useValidInput } from "../../hooks/useValidInput";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Login = () => {
+  const [error, setError] = useState();
+  const navigate = useNavigate();
+
   const {
     value: enteredEmail,
     empty: emailEmpty,
@@ -19,8 +25,26 @@ const Login = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if (emailEmpty) {
+    if (emailEmpty || passwordEmpty) {
       return;
+    }
+    try {
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, enteredEmail, enteredPassword).then(
+        (userCredential) => {
+          // signed in
+          const user = userCredential.user;
+
+          navigate("/");
+        }
+      );
+    } catch (error) {
+      const loginError = {
+        code: error.code,
+        message: error.message,
+      };
+
+      setError(loginError);
     }
 
     resetEmail();
@@ -36,6 +60,9 @@ const Login = () => {
         onSubmit={submitHandler}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
+        {error && (
+          <p className="block text-red-500 text-sm mb-2">{error.message}</p>
+        )}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"

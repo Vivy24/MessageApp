@@ -1,6 +1,17 @@
+import { useState } from "react";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+
+import { useNavigate } from "react-router-dom";
 import { useValidInput } from "../../hooks/useValidInput";
 
 const Register = () => {
+  const [error, setError] = useState();
+  const navigate = useNavigate();
+
   const {
     value: enteredUsername,
     empty: enteredUserEmpty,
@@ -60,6 +71,25 @@ const Register = () => {
     ) {
       return;
     }
+
+    try {
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, enteredEmail, enteredCPassword).then(
+        async () => {
+          await updateProfile(auth.currentUser, {
+            displayName: enteredUsername,
+          });
+          navigate("/");
+        }
+      );
+    } catch (error) {
+      const registerError = {
+        code: error.code,
+        message: error.message,
+      };
+
+      setError(registerError);
+    }
     resetUsername();
     resetEmail();
     resetPassword();
@@ -76,6 +106,9 @@ const Register = () => {
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         onSubmit={submitHandler}
       >
+        {error && (
+          <p className="block text-red-500 text-sm mb-2">{error.message}</p>
+        )}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"

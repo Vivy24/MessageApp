@@ -1,6 +1,17 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
+import { Fragment } from "react";
 
 const NavBar = () => {
+  const auth = getAuth();
+
+  const logOutHandler = () => {
+    signOut(auth)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((error) => {});
+  };
   return (
     <nav className="flex items-center justify-between flex-wrap bg-blue-500 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -22,21 +33,29 @@ const NavBar = () => {
       </div>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-lg lg:flex-grow ">
-          <NavLink
-            className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-            to="/login"
-          >
-            Login
-          </NavLink>
-          <NavLink
-            className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-            to="/register"
-          >
-            Register
-          </NavLink>
-          <button className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white">
-            Logout
-          </button>
+          {auth.currentUser ? (
+            <button
+              onClick={logOutHandler}
+              className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white"
+            >
+              Logout
+            </button>
+          ) : (
+            <Fragment>
+              <NavLink
+                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                to="/login"
+              >
+                Login
+              </NavLink>
+              <NavLink
+                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                to="/register"
+              >
+                Register
+              </NavLink>
+            </Fragment>
+          )}
         </div>
       </div>
     </nav>
