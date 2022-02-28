@@ -1,7 +1,7 @@
-import React from "react";
+import NoChat from "./chat/NoChat";
 
 const Authorize = () => {
-  return <div>Chat page</div>;
+  return <NoChat />;
 };
 
 export default Authorize;
