@@ -19,7 +19,7 @@ const NoChat = () => {
   };
 
   return (
-    <div className="">
+    <div>
       <h3 className="text-2xl text-center mt-20">
         No chat available, please enter the email you want to create chat with
       </h3>

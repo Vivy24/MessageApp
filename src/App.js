@@ -9,13 +9,17 @@ import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
-    <div className="App">
-      <NavBar />
-      <Routes>
-        <Route exact path="/" element={<HomePage />} />
-        <Route exact path="/login" element={<LoginPage />} />
-        <Route exact path="/register" element={<RegisterPage />} />
-      </Routes>
+    <div className="App flex flex-col h-screen">
+      <div>
+        <NavBar />
+      </div>
+      <div className="flex flex-grow">
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/login" element={<LoginPage />} />
+          <Route exact path="/register" element={<RegisterPage />} />
+        </Routes>
+      </div>
     </div>
   );
 }
