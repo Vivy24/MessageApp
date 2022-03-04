@@ -1,7 +1,8 @@
 import NotAuthorize from "../components/home/NotAuthorize";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Authorize from "../components/home/Authorize";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
+import NavBar from "../components/NavBar";
 
 const HomePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -11,11 +12,26 @@ const HomePage = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
       }
     });
+
+    return () => {
+      setIsLoggedIn();
+    };
   }, []);
 
-  return isLoggedIn ? <Authorize /> : <NotAuthorize />;
+  return (
+    <Fragment>
+      <div>
+        <NavBar auth={isLoggedIn} />
+      </div>
+      <div className="flex flex-grow">
+        {isLoggedIn ? <Authorize /> : <NotAuthorize />}
+      </div>
+    </Fragment>
+  );
 };
 
 export default HomePage;

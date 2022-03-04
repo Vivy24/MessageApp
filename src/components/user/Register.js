@@ -7,6 +7,7 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import { useValidInput } from "../../hooks/useValidInput";
+import { getDatabase, ref, set } from "firebase/database";
 
 const Register = () => {
   const [error, setError] = useState();
@@ -79,6 +80,13 @@ const Register = () => {
           await updateProfile(auth.currentUser, {
             displayName: enteredUsername,
           });
+
+          const db = getDatabase();
+          set(ref(db, "users/" + auth.currentUser.uid), {
+            displayName: auth.currentUser.displayName,
+            email: auth.currentUser.email,
+          });
+
           navigate("/");
         }
       );

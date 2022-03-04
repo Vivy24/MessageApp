@@ -9,11 +9,8 @@ import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
-    <div className="App flex flex-col h-screen">
-      <div>
-        <NavBar />
-      </div>
-      <div className="flex flex-grow">
+    <div className="App ">
+      <div className="flex flex-col h-screen">
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route exact path="/login" element={<LoginPage />} />

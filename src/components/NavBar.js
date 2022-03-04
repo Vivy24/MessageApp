@@ -1,14 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { Fragment } from "react";
 
-const NavBar = () => {
+const NavBar = (props) => {
   const auth = getAuth();
+  const navigate = useNavigate();
 
   const logOutHandler = () => {
     signOut(auth)
       .then(() => {
-        window.location.reload();
+        navigate("/");
       })
       .catch((error) => {});
   };
@@ -19,7 +20,7 @@ const NavBar = () => {
           Chat
         </NavLink>
       </div>
-      <div className="block lg:hidden">
+      {/* <div className="block lg:hidden">
         <button className="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
           <svg
             className="fill-current h-3 w-3"
@@ -30,10 +31,10 @@ const NavBar = () => {
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
         </button>
-      </div>
+      </div> */}
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-lg lg:flex-grow ">
-          {auth.currentUser ? (
+          {props.auth ? (
             <button
               onClick={logOutHandler}
               className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white"
