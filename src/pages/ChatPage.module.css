@@ -1,0 +1,15 @@
+.textarea[contenteditable]:empty::before {
+  content: "Enter your message here";
+  color: gray;
+}
+
+.textarea {
+  display: inline-block;
+  margin: 5px;
+  width: 90%;
+  overflow: hidden;
+  resize: none;
+  min-height: 40px;
+  line-height: 20px;
+  border: 1px solid black;
+}

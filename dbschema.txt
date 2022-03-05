@@ -1,0 +1,12 @@
+chat: {
+	members:[user1ID, user2ID],
+	messages: [message1 (obeject)]
+}
+
+message: {
+	senderID: userSenderID, 
+	receiverID: userReceiverID,
+	time:
+	content:  
+}
+

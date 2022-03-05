@@ -1,4 +1,4 @@
-import NoChat from "./chat/NoChat";
+import ChatPage from "../../pages/ChatPage";
 import UserList from "../user/UserList";
 
 const Authorize = () => {
@@ -10,7 +10,7 @@ const Authorize = () => {
 
       <div className="bg-slate-300 w-1"></div>
       <div className="w-4/5">
-        <NoChat />
+        <ChatPage />
       </div>
     </div>
   );

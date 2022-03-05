@@ -47,13 +47,11 @@ const UserList = () => {
         >
           {users.map((user) => {
             return (
-              <li className="block">
-                <UserName
-                  name={user.info.displayName}
-                  key={user.id}
-                  id={user.id}
-                />
-              </li>
+              <UserName
+                name={user.info.displayName}
+                key={user.id}
+                id={user.id}
+              />
             );
           })}
         </div>
