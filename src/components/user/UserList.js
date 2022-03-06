@@ -1,12 +1,18 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, Fragment } from "react";
+import { useSelector } from "react-redux";
 import UserName from "./User";
 
 import { filerDataByKey } from "../../services/helpers/user";
+import { createNewChat, checkExistChat } from "../../services/helpers/chat";
+import { useNavigate } from "react-router-dom";
 
 const UserList = () => {
   const [users, setUsersList] = useState([]);
+  const userStore = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
   const handleSearching = (event) => {
     event.preventDefault();
   };
@@ -16,13 +22,25 @@ const UserList = () => {
     if (value) {
       try {
         const userList = await filerDataByKey("displayName", value);
-        setUsersList(userList);
+        const filterUserList = userList.filter((user) => {
+          return user.id !== userStore.userID;
+        });
+        setUsersList(filterUserList);
       } catch (error) {
         console.log(error);
       }
     } else {
       setUsersList([]);
     }
+  };
+
+  const createOrRenderChat = async (destinationUID) => {
+    let existChatID = checkExistChat(userStore.userID, destinationUID);
+
+    if (!existChatID) {
+      existChatID = await createNewChat(userStore.userID, destinationUID);
+    }
+    navigate(`/chat/${existChatID}`);
   };
   return (
     <Fragment>
@@ -48,6 +66,7 @@ const UserList = () => {
           {users.map((user) => {
             return (
               <UserName
+                createChat={createOrRenderChat}
                 name={user.info.displayName}
                 key={user.id}
                 id={user.id}

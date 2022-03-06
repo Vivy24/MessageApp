@@ -58,7 +58,7 @@ const Register = () => {
     return cPassword === enteredPassword;
   });
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     if (
       emailEmpty ||
@@ -75,21 +75,23 @@ const Register = () => {
 
     try {
       const auth = getAuth();
-      createUserWithEmailAndPassword(auth, enteredEmail, enteredCPassword).then(
-        async () => {
-          await updateProfile(auth.currentUser, {
-            displayName: enteredUsername,
-          });
+      await createUserWithEmailAndPassword(
+        auth,
+        enteredEmail,
+        enteredCPassword
+      ).then(async () => {
+        await updateProfile(auth.currentUser, {
+          displayName: enteredUsername,
+        });
 
-          const db = getDatabase();
-          set(ref(db, "users/" + auth.currentUser.uid), {
-            displayName: auth.currentUser.displayName,
-            email: auth.currentUser.email,
-          });
+        const db = getDatabase();
+        set(ref(db, "users/" + auth.currentUser.uid), {
+          displayName: auth.currentUser.displayName,
+          email: auth.currentUser.email,
+        });
 
-          navigate("/");
-        }
-      );
+        navigate("/");
+      });
     } catch (error) {
       const registerError = {
         code: error.code,

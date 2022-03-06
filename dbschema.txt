@@ -1,12 +1,15 @@
-chat: {
+chats: {
 	members:[user1ID, user2ID],
-	messages: [message1 (obeject)]
+	messages: [message1ID (obeject), message2ID (object)]
+	mostRecentActive: time
 }
 
-message: {
+messages: {
 	senderID: userSenderID, 
 	receiverID: userReceiverID,
-	time:
 	content:  
+	time: time
 }
+
+
 

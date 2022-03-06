@@ -23,21 +23,24 @@ const Login = () => {
     reset: resetPassword,
   } = useValidInput();
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     if (emailEmpty || passwordEmpty) {
       return;
     }
+
     try {
       const auth = getAuth();
-      signInWithEmailAndPassword(auth, enteredEmail, enteredPassword).then(
-        (userCredential) => {
-          // signed in
-          const user = userCredential.user;
+      await signInWithEmailAndPassword(
+        auth,
+        enteredEmail,
+        enteredPassword
+      ).then((userCredential) => {
+        // signed in
+        const user = userCredential.user;
 
-          navigate("/");
-        }
-      );
+        navigate("/");
+      });
     } catch (error) {
       const loginError = {
         code: error.code,

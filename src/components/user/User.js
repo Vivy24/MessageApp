@@ -1,5 +1,6 @@
 const UserName = (props) => {
   const clickToRenderChat = (value) => {
+    props.createChat(value.target.value);
     // id of the user: value.target.value;
     // need to render chat or create chat if there is none
   };
