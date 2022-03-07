@@ -10,11 +10,7 @@ const Chat = (props) => {
     setChat(chat);
   }, [props.chatID]);
 
-  return (
-    <div>
-      {chat.message ? "" : <h2>This chat does not have any message</h2>}
-    </div>
-  );
+  return <div>{chat.message ? "" : <h2>{props.chatID}</h2>}</div>;
 };
 
 export default Chat;

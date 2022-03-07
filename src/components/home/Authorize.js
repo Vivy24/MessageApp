@@ -1,7 +1,13 @@
 import ChatPage from "../../pages/ChatPage";
 import UserList from "../user/UserList";
 
-const Authorize = (props) => {
+import { useSelector } from "react-redux";
+
+const Authorize = () => {
+  const chatStore = useSelector((state) => state.chat);
+
+  console.log(chatStore.chatID);
+
   return (
     <div className="flex w-full">
       <div className=" w-1/5 ">
@@ -10,7 +16,7 @@ const Authorize = (props) => {
 
       <div className="bg-slate-300 w-1"></div>
       <div className="w-4/5">
-        <ChatPage chatID={props.chatID} />
+        <ChatPage chatID={chatStore.chatID} />
       </div>
     </div>
   );
