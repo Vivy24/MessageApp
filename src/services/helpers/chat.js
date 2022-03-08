@@ -64,3 +64,9 @@ export const queryChatByID = (chatID) => {
 
   return chatObj;
 };
+
+export const addMessage = (chatID, message) => {
+  const chatRef = ref(db, "chats" + chatID);
+
+  chatRef.messages.push(message);
+};

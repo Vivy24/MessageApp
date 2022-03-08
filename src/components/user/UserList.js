@@ -36,7 +36,6 @@ const UserList = () => {
 
   const createOrRenderChat = async (destinationUID) => {
     let existChatID = checkExistChat(userStore.userID, destinationUID);
-
     if (!existChatID) {
       existChatID = await createNewChat(userStore.userID, destinationUID);
     }
@@ -58,6 +57,12 @@ const UserList = () => {
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>
+
+      {/* {// where to render message list}
+      <div className >
+        
+        </div> */}
+
       {users.length !== 0 && (
         <div
           id="dropdown"
