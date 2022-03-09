@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 const UserList = () => {
   const [users, setUsersList] = useState([]);
   const userStore = useSelector((state) => state.user);
+  const chatStore = useSelector((state) => state.chat);
   const navigate = useNavigate();
 
   const handleSearching = (event) => {
@@ -35,7 +36,7 @@ const UserList = () => {
   };
 
   const createOrRenderChat = async (destinationUID) => {
-    let existChatID = checkExistChat(userStore.userID, destinationUID);
+    let existChatID = await checkExistChat(userStore.userID, destinationUID);
     if (!existChatID) {
       existChatID = await createNewChat(userStore.userID, destinationUID);
     }

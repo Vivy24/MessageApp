@@ -3,20 +3,29 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import style from "./ChatPage.module.css";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Chat from "../components/home/chat/Chat";
-import { useSelector } from "react-redux";
-import { queryChatByID } from "../services/helpers/chat";
+import { useSelector, useDispatch } from "react-redux";
+import { queryChatByID, getMessage } from "../store/chat-action";
 import { addMessageToDB } from "../services/helpers/message";
 
 const ChatPage = (props) => {
   const { height, width } = useWindowDimensions();
   const user = useSelector((state) => state.user);
+  const chat = useSelector((state) => state.chat);
 
   const ref = useRef(null);
-  const addMessage = () => {
-    const chat = queryChatByID(props.chatID);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchChat = async () => {
+      console.log("Working");
+      dispatch(queryChatByID);
+      // await getMessage(props.chatID);
+    };
+    fetchChat();
+  }, []);
 
+  const addMessage = async () => {
     const sender = user.userID;
 
     const receiver = chat.members.find((id) => {
@@ -27,7 +36,7 @@ const ChatPage = (props) => {
       return;
     }
 
-    addMessageToDB(sender, receiver, props.chatID, ref.current.innerText);
+    await addMessageToDB(sender, receiver, props.chatID, ref.current.innerText);
 
     // bad behavior
     ref.current.innerText = "";

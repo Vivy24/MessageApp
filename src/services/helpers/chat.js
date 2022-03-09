@@ -1,15 +1,17 @@
 /* eslint-disable no-restricted-globals */
+
+import { faCropSimple } from "@fortawesome/free-solid-svg-icons";
 import {
   getDatabase,
   ref,
   push,
-  orderByChild,
   orderByValue,
   query,
-  equalTo,
   onValue,
 } from "firebase/database";
 import { setDoc, Timestamp } from "firebase/firestore";
+
+import { useDispatch } from "react-redux";
 
 const db = getDatabase();
 
@@ -46,27 +48,4 @@ export const checkExistChat = (senderUID, destinationUID) => {
   });
 
   return foundID;
-};
-
-export const queryChatByID = (chatID) => {
-  let chatObj;
-  const chatRef = ref(db, "chats/" + chatID);
-  onValue(chatRef, (snapshot) => {
-    const data = snapshot.val();
-
-    const chat = {
-      members: data.members,
-      message: data.message,
-    };
-
-    chatObj = chat;
-  });
-
-  return chatObj;
-};
-
-export const addMessage = (chatID, message) => {
-  const chatRef = ref(db, "chats" + chatID);
-
-  chatRef.messages.push(message);
 };

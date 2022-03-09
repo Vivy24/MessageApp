@@ -32,6 +32,5 @@ export const filerDataByKey = (key, value) => {
       userLists.push(user);
     });
   });
-
   return userLists;
 };

@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { queryChatByID } from "../../../services/helpers/chat";
+import { queryChatByID } from "../../../store/chat-action";
+
+import { getMessage } from "../../../services/helpers/message";
+import { useSelector } from "react-redux";
 
 const Chat = (props) => {
   const [chat, setChat] = useState("");
+  const chatStore = useSelector((state) => state.chat);
 
-  useEffect(() => {
-    const chat = queryChatByID(props.chatID);
-
-    setChat(chat);
-  }, [props.chatID]);
-
-  return <div>{chat.message ? "" : <h2>{props.chatID}</h2>}</div>;
+  console.log(chatStore);
+  return <div>{chatStore && <h2>{chatStore.chatID}</h2>}</div>;
 };
 
 export default Chat;
