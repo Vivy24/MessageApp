@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { queryChatByID } from "./chat-action";
 
 const chatSlice = createSlice({
   name: "chat",
@@ -27,14 +26,19 @@ const chatSlice = createSlice({
     },
   },
 
-  extraReducers: (builder) => {
-    builder.addCase(queryChatByID.fulfilled, (state, action) => {
-      state.members = action.payload.members;
-      state.chatID = action.payload.chatID;
-    });
-  },
+  // extraReducers: (builder) => {
+  //   builder.addCase(queryChatByID.fulfilled, (state, action) => {
+  //     console.log(action.payload);
+
+  //     state.members = action.payload;
+  //   });
 });
 
-export const chatActions = chatSlice.actions;
+// const mapDispatchToProps = (dispatch, chatID) => {
+//   return {
+//     getChat: () => dispatch(queryChatByID(chatID)),
+//   };
+// };
 
+export const chatActions = chatSlice.actions;
 export default chatSlice;

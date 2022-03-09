@@ -1,6 +1,5 @@
 /* eslint-disable no-restricted-globals */
 
-import { faCropSimple } from "@fortawesome/free-solid-svg-icons";
 import {
   getDatabase,
   ref,
@@ -9,9 +8,7 @@ import {
   query,
   onValue,
 } from "firebase/database";
-import { setDoc, Timestamp } from "firebase/firestore";
-
-import { useDispatch } from "react-redux";
+import { Timestamp } from "firebase/firestore";
 
 const db = getDatabase();
 
