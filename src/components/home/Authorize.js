@@ -3,10 +3,12 @@ import UserList from "../user/UserList";
 
 import { useSelector } from "react-redux";
 
+import { useNavigate } from "react-router-dom";
+
 const Authorize = () => {
   const chatStore = useSelector((state) => state.chat);
-
-  console.log(chatStore.chatID);
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   return (
     <div className="flex w-full">

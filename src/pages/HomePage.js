@@ -38,11 +38,14 @@ const HomePage = () => {
   useEffect(() => {
     const chatID = params.chatID;
 
-    dispatch(
-      chatActions.getChatID({
-        chatID: chatID,
-      })
-    );
+    const updatedChatID = async () => {
+      await dispatch(
+        chatActions.getChatID({
+          chatID: chatID,
+        })
+      );
+    };
+    updatedChatID();
   });
 
   return (

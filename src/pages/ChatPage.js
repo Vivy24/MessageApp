@@ -16,11 +16,15 @@ import {
   orderByChild,
   equalTo,
 } from "firebase/database";
+import { useParams } from "react-router-dom";
 
 const ChatPage = (props) => {
   const { height, width } = useWindowDimensions();
   const user = useSelector((state) => state.user);
   const chat = useSelector((state) => state.chat);
+  const params = useParams();
+
+  console.log(params.chatID);
 
   const db = getDatabase();
   const refer = useRef(null);
@@ -56,7 +60,6 @@ const ChatPage = (props) => {
               senderID: childData.senderID,
             };
             messages.push(message);
-            console.log({ message });
           });
           sortedMessages = messages.sort(
             (message1, message2) =>
@@ -72,7 +75,7 @@ const ChatPage = (props) => {
     };
 
     fetchChat(props.chatID);
-  }, []);
+  }, [chat.chatID]);
 
   const addMessage = async () => {
     const sender = user.userID;
@@ -88,7 +91,7 @@ const ChatPage = (props) => {
     await addMessageToDB(
       sender,
       receiver,
-      props.chatID,
+      chat.chatID,
       refer.current.innerText
     );
 

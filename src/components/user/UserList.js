@@ -1,18 +1,27 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, Fragment } from "react";
-import { useSelector } from "react-redux";
+import { useState, Fragment, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import UserName from "./User";
-
 import { filerDataByKey } from "../../services/helpers/user";
-import { createNewChat, checkExistChat } from "../../services/helpers/chat";
+import { createNewChat } from "../../services/helpers/chat";
 import { useNavigate } from "react-router-dom";
+import { chatActions } from "../../store/chat-slice";
+import {
+  getDatabase,
+  ref,
+  onValue,
+  query,
+  orderByValue,
+} from "firebase/database";
 
 const UserList = () => {
   const [users, setUsersList] = useState([]);
   const userStore = useSelector((state) => state.user);
-  const chatStore = useSelector((state) => state.chat);
+
   const navigate = useNavigate();
+
+  const db = getDatabase();
 
   const handleSearching = (event) => {
     event.preventDefault();
@@ -35,13 +44,41 @@ const UserList = () => {
     }
   };
 
-  const createOrRenderChat = async (destinationUID) => {
-    let existChatID = await checkExistChat(userStore.userID, destinationUID);
-    if (!existChatID) {
-      existChatID = await createNewChat(userStore.userID, destinationUID);
-    }
-    navigate(`/chat/${existChatID}`);
+  const createOrRenderChat = (destinationUID) => {
+    console.log(destinationUID);
+    const queryChat = async () => {
+      const findChat = query(ref(db, "chats"), orderByValue("members"));
+      let found = false;
+      await onValue(findChat, (snapshot) => {
+        snapshot.forEach((value) => {
+          const childKey = value.key;
+          const childData = value.val();
+
+          if (
+            (childData.members[0] === userStore.userID &&
+              childData.members[1] === destinationUID) ||
+            (childData.members[0] === destinationUID &&
+              childData.members[1] === userStore.userID)
+          ) {
+            // get the matched key
+            found = true;
+            navigate(`/chat/${childKey}`);
+            return;
+          }
+        });
+      });
+
+      return found;
+    };
+    queryChat().then(async (response) => {
+      if (!response) {
+        let chatID = await createNewChat(userStore.userID, destinationUID);
+
+        navigate(`/chat/${chatID}`);
+      }
+    });
   };
+
   return (
     <Fragment>
       <form
@@ -58,11 +95,6 @@ const UserList = () => {
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>
-
-      {/* {// where to render message list}
-      <div className >
-        
-        </div> */}
 
       {users.length !== 0 && (
         <div

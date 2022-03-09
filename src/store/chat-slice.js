@@ -14,6 +14,7 @@ const chatSlice = createSlice({
     },
 
     getChatID(state, action) {
+      console.log("INSIDE DISPATCH" + action.payload.chatID);
       state.chatID = action.payload.chatID;
     },
 
@@ -25,20 +26,7 @@ const chatSlice = createSlice({
       state.messages = action.payload.messages;
     },
   },
-
-  // extraReducers: (builder) => {
-  //   builder.addCase(queryChatByID.fulfilled, (state, action) => {
-  //     console.log(action.payload);
-
-  //     state.members = action.payload;
-  //   });
 });
-
-// const mapDispatchToProps = (dispatch, chatID) => {
-//   return {
-//     getChat: () => dispatch(queryChatByID(chatID)),
-//   };
-// };
 
 export const chatActions = chatSlice.actions;
 export default chatSlice;

@@ -9,10 +9,7 @@ const Chat = () => {
   const [receiver, serReceiverName] = useState("");
   const chat = useSelector((state) => state.chat);
 
-  console.log(chat);
   const user = useSelector((state) => state.user);
-
-  console.log(user);
 
   const db = getDatabase();
 
@@ -20,7 +17,6 @@ const Chat = () => {
     const senderRef = ref(db, "users/" + user.userID);
     onValue(senderRef, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
       setSenderName(data.displayName);
     });
 
@@ -31,12 +27,9 @@ const Chat = () => {
     const receiverRef = ref(db, "users/" + receiverUID);
     onValue(receiverRef, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
       serReceiverName(data.displayName);
     });
   }, [chat]);
-
-  console.log(sender, receiver);
 
   return (
     <div>
