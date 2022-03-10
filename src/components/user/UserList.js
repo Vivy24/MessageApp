@@ -17,6 +17,7 @@ import {
 
 const UserList = () => {
   const [users, setUsersList] = useState([]);
+  const [start, setStart] = useState(false);
   const userStore = useSelector((state) => state.user);
 
   const navigate = useNavigate();
@@ -45,11 +46,11 @@ const UserList = () => {
   };
 
   const createOrRenderChat = (destinationUID) => {
-    console.log(destinationUID);
     const queryChat = async () => {
       const findChat = query(ref(db, "chats"), orderByValue("members"));
       let found = false;
       await onValue(findChat, (snapshot) => {
+        setStart(true);
         snapshot.forEach((value) => {
           const childKey = value.key;
           const childData = value.val();
@@ -71,7 +72,8 @@ const UserList = () => {
       return found;
     };
     queryChat().then(async (response) => {
-      if (!response) {
+      if (!response && start) {
+        console.log("Creating");
         let chatID = await createNewChat(userStore.userID, destinationUID);
 
         navigate(`/chat/${chatID}`);

@@ -10,6 +10,7 @@ import { chatActions } from "../store/chat-slice";
 
 const HomePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState();
+  const [alreadySet, setAlreadySet] = useState(false);
   const dispatch = useDispatch();
 
   const params = useParams();

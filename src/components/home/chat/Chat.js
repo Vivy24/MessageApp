@@ -29,7 +29,7 @@ const Chat = () => {
       const data = snapshot.val();
       serReceiverName(data.displayName);
     });
-  }, [chat]);
+  }, []);
 
   return (
     <div>
