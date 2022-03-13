@@ -14,7 +14,6 @@ const chatSlice = createSlice({
     },
 
     getChatID(state, action) {
-      console.log("INSIDE DISPATCH" + action.payload.chatID);
       state.chatID = action.payload.chatID;
     },
 

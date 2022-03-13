@@ -17,14 +17,13 @@ import {
   equalTo,
 } from "firebase/database";
 import { useParams } from "react-router-dom";
+import autoprefixer from "autoprefixer";
 
 const ChatPage = (props) => {
   const { height, width } = useWindowDimensions();
   const user = useSelector((state) => state.user);
   const chat = useSelector((state) => state.chat);
   const params = useParams();
-
-  console.log(params.chatID);
 
   const db = getDatabase();
   const refer = useRef(null);
@@ -110,13 +109,26 @@ const ChatPage = (props) => {
     addMessage();
   };
 
+  //  maxHeight: "80vh",
   return (
     <div className="flex flex-col h-full justify-center items-center">
-      <div className="mb-auto flex-grow bg-yellow-200 w-full">
+      <div
+        className="mb-auto w-full"
+        style={{
+          overflowY: "auto",
+          flex: "1 1 auto",
+        }}
+      >
         {props.chatID ? <Chat chatID={props.chatID} /> : <NoChat />}
       </div>
 
-      <form onSubmit={sendAMessage} className=" flex w-full h-fit bg-blue-500">
+      <form
+        onSubmit={sendAMessage}
+        style={{
+          flex: "0 1 40px",
+        }}
+        className=" flex w-full h-fit bg-blue-500"
+      >
         {
           <span
             onKeyUp={sendMessageBySpan}
@@ -125,8 +137,7 @@ const ChatPage = (props) => {
             contentEditable
           ></span>
         }
-
-        <button className="ml-2  " type="submit">
+        <button>
           {width < 600 ? (
             <FontAwesomeIcon icon={faPaperPlane} />
           ) : (

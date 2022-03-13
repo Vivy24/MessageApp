@@ -1,7 +1,7 @@
 import ChatMessage from "./ChatMessage";
 
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 
 const Chat = () => {
@@ -13,8 +13,11 @@ const Chat = () => {
 
   const db = getDatabase();
 
+  const scrollTobottom = useRef(null);
+
   useEffect(() => {
     const senderRef = ref(db, "users/" + user.userID);
+    scrollTobottom.current.scrollIntoView({ behavior: "smooth" });
     onValue(senderRef, (snapshot) => {
       const data = snapshot.val();
       setSenderName(data.displayName);
@@ -32,21 +35,31 @@ const Chat = () => {
   }, []);
 
   return (
-    <div>
+    <div
+      style={{
+        maxHeight: "200px",
+        margin: "0 auto 1rem",
+        maxWidth: "1500px",
+        padding: "0.10rem 0.75rem",
+      }}
+    >
       {chat.members &&
-        chat.messages.map((message) => {
+        chat.messages.map((message, index) => {
           const messageSender =
-            message.senderID == user.userID ? sender : receiver;
-          let sending = user.userID == message.senderID;
+            message.senderID === user.userID ? sender : receiver;
+          let sending = user.userID === message.senderID;
+          let last = index === chat.messages.length - 1;
           return (
             <ChatMessage
               key={Math.random()}
               senderName={messageSender}
               content={message.content}
               sending={sending}
+              last={last}
             />
           );
         })}
+      <div style={{ height: "10px" }} ref={scrollTobottom}></div>
     </div>
   );
 };

@@ -1,16 +1,21 @@
+import style from "./ChatMessageStyle.module.css";
+
 const ChatMessage = (props) => {
   return (
-    <div
-      style={{
-        display: "block",
-        marginLeft: "2px",
-        backgroundColor: "gray",
-        width: "fit-content",
-      }}
-    >
-      <h5>{props.senderName}</h5>
-      <p>{props.content}</p>
-      <h2>{props.sending && <p>Is Sending</p>}</h2>
+    <div>
+      <p
+        className={
+          !props.last
+            ? props.sending
+              ? style["from-me"]
+              : style["from-them"]
+            : props.sending
+            ? `${style["from-me"]} ${style.lastChild}`
+            : `${style["from-them"]} ${style.lastChild}`
+        }
+      >
+        {props.content}
+      </p>
     </div>
   );
 };
