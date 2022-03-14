@@ -6,7 +6,7 @@ import UserName from "./User";
 import { filerDataByKey } from "../../services/helpers/user";
 import { createNewChat } from "../../services/helpers/chat";
 import { useNavigate } from "react-router-dom";
-import { chatActions } from "../../store/chat-slice";
+import ExistUser from "./ExistUser";
 import {
   getDatabase,
   ref,
@@ -18,6 +18,7 @@ import {
 const UserList = () => {
   const [users, setUsersList] = useState([]);
   const [start, setStart] = useState(false);
+  const [existChats, setExistChats] = useState([]);
   const userStore = useSelector((state) => state.user);
 
   const navigate = useNavigate();
@@ -27,6 +28,40 @@ const UserList = () => {
   const handleSearching = (event) => {
     event.preventDefault();
   };
+
+  useEffect(() => {
+    const queryChat = async () => {
+      const findChat = query(ref(db, "chats"), orderByValue("members"));
+
+      await onValue(findChat, (snapshot) => {
+        let sortedchat = [];
+        const chatList = [];
+        snapshot.forEach((value) => {
+          const childKey = value.key;
+          const childData = value.val();
+
+          if (
+            childData.members[0] === userStore.userID ||
+            childData.members[1] === userStore.userID
+          ) {
+            const chat = {
+              id: childKey,
+              ...childData,
+            };
+            chatList.push(chat);
+          }
+        });
+
+        sortedchat = chatList.sort((chat1, chat2) => {
+          return parseFloat(chat2.created) - parseFloat(chat1.created);
+        });
+
+        setExistChats(sortedchat);
+      });
+    };
+
+    queryChat();
+  }, []);
 
   const handleChange = async (input) => {
     const value = input.target.value;
@@ -63,6 +98,7 @@ const UserList = () => {
           ) {
             // get the matched key
             found = true;
+
             navigate(`/chat/${childKey}`);
             return;
           }
@@ -73,7 +109,6 @@ const UserList = () => {
     };
     queryChat().then(async (response) => {
       if (!response && start) {
-        console.log("Creating");
         let chatID = await createNewChat(userStore.userID, destinationUID);
 
         navigate(`/chat/${chatID}`);
@@ -85,7 +120,7 @@ const UserList = () => {
     <Fragment>
       <form
         onSubmit={handleSearching}
-        className="inline-flex w-full outline outline-gray-500 outline-1 "
+        className="inline-flex w-full outline outline-gray-500 outline-1 h-7 mb-1.5 bg-white text-slate-700"
       >
         <input
           className=" w-10/12"
@@ -98,23 +133,40 @@ const UserList = () => {
         </button>
       </form>
 
-      {users.length !== 0 && (
-        <div
-          id="dropdown"
-          className="user z-10 bg-black-500 shadow-lg  divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-        >
-          {users.map((user) => {
+      <div className="relative z-0">
+        {existChats.length !== 0 &&
+          existChats.map((chat) => {
             return (
-              <UserName
-                createChat={createOrRenderChat}
-                name={user.info.displayName}
-                key={user.id}
-                id={user.id}
+              <ExistUser
+                key={chat.id}
+                id={chat.id}
+                lastMessage={chat.lastMessage}
+                members={chat.members}
               />
             );
           })}
-        </div>
-      )}
+
+        {users.length !== 0 && (
+          <div
+            id="dropdown"
+            className="absolute pt-1 inset-0 user z-20 h-fit pb-3 shadow-lg  divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 z-10"
+            style={{
+              backgroundColor: "#e5e5ea",
+            }}
+          >
+            {users.map((user) => {
+              return (
+                <UserName
+                  createChat={createOrRenderChat}
+                  name={user.info.displayName}
+                  key={user.id}
+                  id={user.id}
+                />
+              );
+            })}
+          </div>
+        )}
+      </div>
     </Fragment>
   );
 };

@@ -15,19 +15,36 @@ import {
   query,
   orderByChild,
   equalTo,
+  set,
+  update,
 } from "firebase/database";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams, useNavigate } from "react-router-dom";
 import autoprefixer from "autoprefixer";
+import { Timestamp } from "firebase/firestore";
 
 const ChatPage = (props) => {
   const { height, width } = useWindowDimensions();
   const user = useSelector((state) => state.user);
   const chat = useSelector((state) => state.chat);
   const params = useParams();
+  const navigate = useNavigate();
 
   const db = getDatabase();
   const refer = useRef(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const chatID = params.chatID;
+
+    const updatedChatID = async () => {
+      await dispatch(
+        chatActions.getChatID({
+          chatID: chatID,
+        })
+      );
+    };
+    updatedChatID();
+  });
 
   useEffect(() => {
     const fetchChat = async (chatID) => {
@@ -77,6 +94,7 @@ const ChatPage = (props) => {
   }, [chat.chatID]);
 
   const addMessage = async () => {
+    // console.log(chat.chatID);
     const sender = user.userID;
 
     const receiver = chat.members.find((id) => {
@@ -93,6 +111,11 @@ const ChatPage = (props) => {
       chat.chatID,
       refer.current.innerText
     );
+
+    update(ref(db, "chats/" + `${chat.chatID}`), {
+      created: Timestamp.now().seconds,
+      lastMessage: refer.current.innerText,
+    });
 
     // bad behavior
     refer.current.innerText = "";
@@ -127,7 +150,7 @@ const ChatPage = (props) => {
         style={{
           flex: "0 1 40px",
         }}
-        className=" flex w-full h-fit bg-blue-500"
+        className=" flex w-full h-fit bg-slate-700 text-black"
       >
         {
           <span
@@ -137,7 +160,7 @@ const ChatPage = (props) => {
             contentEditable
           ></span>
         }
-        <button>
+        <button className="text-white">
           {width < 600 ? (
             <FontAwesomeIcon icon={faPaperPlane} />
           ) : (

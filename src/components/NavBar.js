@@ -14,7 +14,7 @@ const NavBar = (props) => {
       .catch((error) => {});
   };
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-blue-500 p-6">
+    <nav className="flex items-center justify-between flex-wrap bg-slate-700 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <NavLink className="font-semibold text-2xl tracking-tight" to="/">
           Chat

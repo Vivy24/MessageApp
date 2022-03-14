@@ -8,10 +8,10 @@ const ChatMessage = (props) => {
           !props.last
             ? props.sending
               ? style["from-me"]
-              : style["from-them"]
+              : `${style["from-them"]} ${style.lastChild} ${style.lastChildFromThem}`
             : props.sending
-            ? `${style["from-me"]} ${style.lastChild}`
-            : `${style["from-them"]} ${style.lastChild}`
+            ? `${style["from-me"]} ${style.lastChild} ${style.lastChildFromMe}`
+            : `${style["from-them"]} `
         }
       >
         {props.content}

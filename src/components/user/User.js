@@ -6,7 +6,11 @@ const UserName = (props) => {
   };
 
   return (
-    <button className="block" value={props.id} onClick={clickToRenderChat}>
+    <button
+      className="bg-red-400 block"
+      value={props.id}
+      onClick={clickToRenderChat}
+    >
       {props.name}
     </button>
   );

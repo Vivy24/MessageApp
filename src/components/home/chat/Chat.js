@@ -6,7 +6,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 
 const Chat = () => {
   const [sender, setSenderName] = useState("");
-  const [receiver, serReceiverName] = useState("");
+  const [receiver, setReceiverName] = useState("");
   const chat = useSelector((state) => state.chat);
 
   const user = useSelector((state) => state.user);
@@ -23,15 +23,17 @@ const Chat = () => {
       setSenderName(data.displayName);
     });
 
-    const receiverUID = chat.members.filter((uid) => {
-      return uid !== user.userID;
-    });
+    if (chat.members) {
+      const receiverUID = chat.members.filter((uid) => {
+        return uid !== user.userID;
+      });
 
-    const receiverRef = ref(db, "users/" + receiverUID);
-    onValue(receiverRef, (snapshot) => {
-      const data = snapshot.val();
-      serReceiverName(data.displayName);
-    });
+      const receiverRef = ref(db, "users/" + receiverUID);
+      onValue(receiverRef, (snapshot) => {
+        const data = snapshot.val();
+        setReceiverName(data.displayName);
+      });
+    }
   }, []);
 
   return (

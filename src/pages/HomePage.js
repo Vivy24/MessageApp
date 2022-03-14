@@ -35,21 +35,8 @@ const HomePage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const chatID = params.chatID;
-
-    const updatedChatID = async () => {
-      await dispatch(
-        chatActions.getChatID({
-          chatID: chatID,
-        })
-      );
-    };
-    updatedChatID();
-  });
-
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen bg-slate-200">
       <div className="mb-1">
         <NavBar auth={isLoggedIn} />
       </div>
