@@ -1,16 +1,10 @@
 const UserName = (props) => {
   const clickToRenderChat = (value) => {
     props.createChat(value.target.value);
-    // id of the user: value.target.value;
-    // need to render chat or create chat if there is none
   };
 
   return (
-    <button
-      className="bg-red-400 block"
-      value={props.id}
-      onClick={clickToRenderChat}
-    >
+    <button className="block" value={props.id} onClick={clickToRenderChat}>
       {props.name}
     </button>
   );

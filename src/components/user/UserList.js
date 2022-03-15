@@ -1,6 +1,6 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import UserName from "./User";
 import { filerDataByKey } from "../../services/helpers/user";
@@ -24,6 +24,8 @@ const UserList = () => {
   const navigate = useNavigate();
 
   const db = getDatabase();
+
+  const formRef = useRef(null);
 
   const handleSearching = (event) => {
     event.preventDefault();
@@ -98,7 +100,6 @@ const UserList = () => {
           ) {
             // get the matched key
             found = true;
-
             navigate(`/chat/${childKey}`);
             return;
           }
@@ -110,7 +111,6 @@ const UserList = () => {
     queryChat().then(async (response) => {
       if (!response && start) {
         let chatID = await createNewChat(userStore.userID, destinationUID);
-
         navigate(`/chat/${chatID}`);
       }
     });
@@ -127,6 +127,7 @@ const UserList = () => {
           type="text"
           placeholder="Search"
           onChange={handleChange}
+          ref={formRef}
         ></input>
         <button className="ml-2 w-2/12" type="submit">
           <FontAwesomeIcon icon={faSearch} />

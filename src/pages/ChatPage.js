@@ -34,20 +34,15 @@ const ChatPage = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const chatID = params.chatID;
-
-    const updatedChatID = async () => {
-      await dispatch(
-        chatActions.getChatID({
-          chatID: chatID,
-        })
-      );
-    };
-    updatedChatID();
-  });
-
-  useEffect(() => {
     const fetchChat = async (chatID) => {
+      const updatedChatID = async () => {
+        await dispatch(
+          chatActions.getChatID({
+            chatID: chatID,
+          })
+        );
+      };
+      updatedChatID();
       const chatRef = ref(db, "chats/" + chatID);
 
       onValue(chatRef, (snapshot) => {
@@ -91,12 +86,11 @@ const ChatPage = (props) => {
     };
 
     fetchChat(props.chatID);
-  }, [chat.chatID]);
+  }, [props.chatID]);
 
   const addMessage = async () => {
-    // console.log(chat.chatID);
     const sender = user.userID;
-
+    console.log(chat);
     const receiver = chat.members.find((id) => {
       return id !== sender;
     });

@@ -20,14 +20,13 @@ p.from-them {
   width: fit-content;
 }
 
-p::before,
-p::after {
+p.from-me::before,
+p.from-me::after {
   bottom: -0.1rem;
   content: "";
   height: 1rem;
   position: absolute;
 }
-
 p.from-me {
   /* align-self: flex-end; */
   margin-left: auto;
@@ -44,14 +43,8 @@ p.lastChildFromMe::before {
   transform: translate(0, -0.1rem);
 }
 
-p.lastChildFromThem::before {
-  border-bottom-left-radius: 0.8rem 0.7rem;
-  right: -0.35rem;
-  transform: translate(0, -0.1rem);
-}
-
 p.lastChild::after {
-  background-color: #fff;
+  background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
   border-bottom-left-radius: 0.5rem;
   right: -40px;
   transform: translate(-30px, -2px);
@@ -80,7 +73,6 @@ p.from-them:before {
 }
 
 p.from-them::after {
-  background-color: rgb(203 213 225);
   border-bottom-right-radius: 0.5rem;
   left: 20px;
   transform: translate(-30px, -2px);

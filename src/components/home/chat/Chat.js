@@ -34,7 +34,7 @@ const Chat = () => {
         setReceiverName(data.displayName);
       });
     }
-  }, []);
+  }, [chat]);
 
   return (
     <div

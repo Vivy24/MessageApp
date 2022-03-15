@@ -5,8 +5,7 @@ import { useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
-const Authorize = () => {
-  const chatStore = useSelector((state) => state.chat);
+const Authorize = (props) => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -18,7 +17,7 @@ const Authorize = () => {
 
       <div className="bg-slate-300 w-1"></div>
       <div className="w-4/5">
-        <ChatPage chatID={chatStore.chatID} />
+        <ChatPage chatID={props.chatID} />
       </div>
     </div>
   );

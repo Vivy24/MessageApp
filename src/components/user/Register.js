@@ -108,7 +108,7 @@ const Register = () => {
 
   return (
     <div className="w-full max-w-xs container my-20">
-      <h1 className="font-bold text-2xl text-center text-blue-500 mb-3">
+      <h1 className="font-bold text-2xl text-center text-slate-700 mb-3">
         Register
       </h1>
 
@@ -223,7 +223,7 @@ const Register = () => {
 
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Register

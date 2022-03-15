@@ -25,6 +25,7 @@ const ExistUser = (props) => {
   }, []);
 
   const renderChat = () => {
+      
     navigate(`/chat/${props.id}`);
   };
 

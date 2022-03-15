@@ -10,7 +10,7 @@ import RegisterPage from "./pages/RegisterPage";
 function App() {
   return (
     <div className="App ">
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-screen bg-slate-200">
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route exact path="/login" element={<LoginPage />} />

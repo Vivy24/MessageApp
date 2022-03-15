@@ -13,6 +13,7 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   const params = useParams();
+  const chatID = params.chatID;
 
   useEffect(() => {
     const auth = getAuth();
@@ -41,7 +42,7 @@ const HomePage = () => {
         <NavBar auth={isLoggedIn} />
       </div>
       <div className="flex flex-grow">
-        {isLoggedIn ? <Authorize /> : <NotAuthorize />}
+        {isLoggedIn ? <Authorize chatID={chatID} /> : <NotAuthorize />}
       </div>
     </div>
   );
