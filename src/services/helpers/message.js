@@ -1,15 +1,6 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import {
-  getDatabase,
-  ref,
-  push,
-  equalTo,
-  orderByChild,
-  query,
-  onValue,
-} from "firebase/database";
+import { getDatabase, ref, push } from "firebase/database";
 
-import { setDoc, Timestamp } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 
 const db = getDatabase();
 

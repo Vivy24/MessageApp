@@ -4,14 +4,14 @@ import NavBar from "../components/NavBar";
 
 const RegisterPage = () => {
   return (
-    <Fragment>
+    <div className="h-screen">
       <div>
         <NavBar auth={false} />
       </div>
-      <div className="flex flex-grow">
+      <div>
         <Register />;
       </div>
-    </Fragment>
+    </div>
   );
 };
 

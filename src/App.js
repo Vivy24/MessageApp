@@ -9,8 +9,8 @@ import RegisterPage from "./pages/RegisterPage";
 import ForgetPass from "./pages/ForgerPass";
 function App() {
   return (
-    <div className="App ">
-      <div className="flex flex-col bg-slate-200">
+    <div className="App bg-slate-200">
+      <div className="flex flex-col ">
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route exact path="/login" element={<LoginPage />} />

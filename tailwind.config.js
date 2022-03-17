@@ -6,7 +6,7 @@ module.exports = {
         center: true,
       },
       spacing: {
-        825: "800px",
+        825: "780px",
         850: "845px",
       },
     },

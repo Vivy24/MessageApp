@@ -104,7 +104,7 @@ const ChatPage = (props) => {
     const receiver = chat.members.find((id) => {
       return id !== sender;
     });
-
+    console.log(refer.current.innerText.length);
     if (refer.current.innerText.length === 0) {
       return;
     }
@@ -121,6 +121,10 @@ const ChatPage = (props) => {
 
   const sendMessageBySpan = (event) => {
     if (event.keyCode === 13) {
+      if (refer.current.innerText.trim().length === 0) {
+        refer.current.innerText = "";
+        return;
+      }
       addMessage();
     }
   };
@@ -131,7 +135,6 @@ const ChatPage = (props) => {
     addMessage();
   };
 
-  //  maxHeight: "80vh",
   return (
     <div className="flex flex-col h-full justify-center items-center">
       <div
@@ -159,7 +162,7 @@ const ChatPage = (props) => {
             contentEditable
           ></span>
         }
-        <button className="text-white">
+        <button className="text-white text-center w-full">
           {width < 600 ? (
             <FontAwesomeIcon icon={faPaperPlane} />
           ) : (

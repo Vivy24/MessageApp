@@ -16,6 +16,8 @@ const NotAuthorize = () => {
           <NavLink to="/register">Register</NavLink>
         </button>
       </div>
+
+      <p className="text-center mt-5">Made by Vivy Vuong</p>
     </div>
   );
 };

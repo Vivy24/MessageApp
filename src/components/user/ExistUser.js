@@ -31,7 +31,7 @@ const ExistUser = (props) => {
   return (
     <button
       onClick={renderChat}
-      className=" w-full shadow-inner text-left bg-slate-700 text-white outline outline-slate-300 pb-3"
+      className="w-full shadow-inner text-left bg-slate-700 text-white outline outline-slate-300 pb-3"
     >
       <p>{receiverName}</p>
       <p style={{ wordWrap: "break-word" }} className="text-xs	">

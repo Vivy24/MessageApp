@@ -58,7 +58,7 @@ const UserList = () => {
 
         setExistChats(sortedchat);
         if (sortedchat.length > 0) {
-          navigate(`/chat/${sortedchat[0]}`);
+          navigate(`/chat/${sortedchat[0].id}`);
         }
       });
     };
@@ -137,9 +137,10 @@ const UserList = () => {
       </form>
 
       <div
-        className="relative z-0 max-h-825 lg:max-h-850"
+        className="relative z-0 h-825 lg:h-850"
         style={{
           overflowY: "auto",
+          overflowX: "hidden",
           flex: "1 1 auto",
         }}
       >

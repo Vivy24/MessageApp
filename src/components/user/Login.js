@@ -124,6 +124,7 @@ const Login = () => {
           />
           <p className="text-red-500 text-xs italic">
             {emailEmpty && "Please enter an email"}
+            <br />
             {passwordEmpty && "Please enter a password"}
           </p>
         </div>
