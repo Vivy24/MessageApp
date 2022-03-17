@@ -1,11 +1,13 @@
 const UserName = (props) => {
-  const clickToRenderChat = (value) => {
-    props.createChat(value.target.value);
+  const clickToRenderChat = () => {
+    props.createChat(props.id);
   };
 
   return (
-    <button className="block " value={props.id} onClick={clickToRenderChat}>
-      {props.name}
+    <button className="block" value={props.id} onClick={clickToRenderChat}>
+      <p className="text-left">{props.name}</p>
+
+      <p className="font-light italic">{props.email}</p>
     </button>
   );
 };

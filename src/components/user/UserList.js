@@ -167,6 +167,7 @@ const UserList = () => {
               return (
                 <UserName
                   createChat={createOrRenderChat}
+                  email={user.info.email}
                   name={user.info.displayName}
                   key={user.id}
                   id={user.id}

@@ -1,4 +1,3 @@
-import "./App.css";
 import "./services/firebase";
 import { Routes, Route } from "react-router-dom";
 
