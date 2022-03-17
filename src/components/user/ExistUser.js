@@ -25,18 +25,21 @@ const ExistUser = (props) => {
   }, []);
 
   const renderChat = () => {
-      
     navigate(`/chat/${props.id}`);
   };
 
   return (
     <button
       onClick={renderChat}
-      className="w-full shadow-inner text-left bg-slate-700 text-white outline outline-slate-500 pb-3"
+      className=" w-full shadow-inner text-left bg-slate-700 text-white outline outline-slate-300 pb-3"
     >
       <p>{receiverName}</p>
       <p style={{ wordWrap: "break-word" }} className="text-xs	">
-        {props.lastMessage}
+        {props.lastMessage
+          ? props.lastMessage.length > 30
+            ? `${props.lastMessage.slice(0, 30)}...`
+            : props.lastMessage
+          : "No messages"}
       </p>
     </button>
   );

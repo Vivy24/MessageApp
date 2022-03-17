@@ -19,13 +19,12 @@ const UserList = () => {
   const [users, setUsersList] = useState([]);
   const [start, setStart] = useState(false);
   const [existChats, setExistChats] = useState([]);
+
   const userStore = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
   const db = getDatabase();
-
-  const formRef = useRef(null);
 
   const handleSearching = (event) => {
     event.preventDefault();
@@ -41,7 +40,6 @@ const UserList = () => {
         snapshot.forEach((value) => {
           const childKey = value.key;
           const childData = value.val();
-
           if (
             childData.members[0] === userStore.userID ||
             childData.members[1] === userStore.userID
@@ -59,6 +57,9 @@ const UserList = () => {
         });
 
         setExistChats(sortedchat);
+        if (sortedchat.length > 0) {
+          navigate(`/chat/${sortedchat[0]}`);
+        }
       });
     };
 
@@ -83,6 +84,8 @@ const UserList = () => {
   };
 
   const createOrRenderChat = (destinationUID) => {
+    setUsersList([]);
+
     const queryChat = async () => {
       const findChat = query(ref(db, "chats"), orderByValue("members"));
       let found = false;
@@ -117,7 +120,7 @@ const UserList = () => {
   };
 
   return (
-    <Fragment>
+    <div className="flex flex-col">
       <form
         onSubmit={handleSearching}
         className="inline-flex w-full outline outline-gray-500 outline-1 h-7 mb-1.5 bg-white text-slate-700"
@@ -127,14 +130,19 @@ const UserList = () => {
           type="text"
           placeholder="Search"
           onChange={handleChange}
-          ref={formRef}
         ></input>
         <button className="ml-2 w-2/12" type="submit">
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>
 
-      <div className="relative z-0">
+      <div
+        className="relative z-0 max-h-825 lg:max-h-850"
+        style={{
+          overflowY: "auto",
+          flex: "1 1 auto",
+        }}
+      >
         {existChats.length !== 0 &&
           existChats.map((chat) => {
             return (
@@ -146,7 +154,6 @@ const UserList = () => {
               />
             );
           })}
-
         {users.length !== 0 && (
           <div
             id="dropdown"
@@ -168,7 +175,7 @@ const UserList = () => {
           </div>
         )}
       </div>
-    </Fragment>
+    </div>
   );
 };
 

@@ -6,7 +6,6 @@ import NavBar from "../components/NavBar";
 import { useDispatch } from "react-redux";
 import { userActions } from "../store/user-slice";
 import { useParams } from "react-router-dom";
-import { chatActions } from "../store/chat-slice";
 
 const HomePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -14,6 +13,10 @@ const HomePage = () => {
 
   const params = useParams();
   const chatID = params.chatID;
+
+  const updated = (message) => {
+    console.log(message);
+  };
 
   useEffect(() => {
     const auth = getAuth();
@@ -38,11 +41,15 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-col h-screen bg-slate-200">
-      <div className="mb-1">
+      <div>
         <NavBar auth={isLoggedIn} />
       </div>
       <div className="flex flex-grow">
-        {isLoggedIn ? <Authorize chatID={chatID} /> : <NotAuthorize />}
+        {isLoggedIn ? (
+          <Authorize chatID={chatID} updateFunc={updated} />
+        ) : (
+          <NotAuthorize />
+        )}
       </div>
     </div>
   );

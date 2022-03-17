@@ -6,14 +6,15 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-
+import ForgetPass from "./pages/ForgerPass";
 function App() {
   return (
     <div className="App ">
-      <div className="flex flex-col h-screen bg-slate-200">
+      <div className="flex flex-col bg-slate-200">
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route exact path="/login" element={<LoginPage />} />
+          <Route exact path="/fPassword" element={<ForgetPass />} />
           <Route exact path="/register" element={<RegisterPage />} />
           <Route exact path="/chat/:chatID/" element={<HomePage />} />
         </Routes>

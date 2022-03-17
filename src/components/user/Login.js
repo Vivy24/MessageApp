@@ -7,6 +7,28 @@ const Login = () => {
   const [error, setError] = useState();
   const navigate = useNavigate();
 
+  const loginForReview = async () => {
+    try {
+      const auth = getAuth();
+      await signInWithEmailAndPassword(
+        auth,
+        "guest@gmail.com",
+        "Guest123."
+      ).then((userCredential) => {
+        const user = userCredential.user;
+
+        navigate("/");
+      });
+    } catch (error) {
+      const loginError = {
+        code: error.code,
+        message: error.message,
+      };
+
+      setError(loginError);
+    }
+  };
+
   const {
     value: enteredEmail,
     empty: emailEmpty,
@@ -114,12 +136,23 @@ const Login = () => {
           </button>
           <a
             className="inline-block align-baseline font-bold text-sm text-slate-700 hover:text-slate-800"
-            href="#"
+            href="/fPassword"
           >
             Forgot Password?
           </a>
         </div>
       </form>
+      <div>
+        <p className="text-sm mb-3">
+          Click this button if you want to go through the app without register
+        </p>
+        <button
+          className="bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          onClick={loginForReview}
+        >
+          Review Log In
+        </button>
+      </div>
     </div>
   );
 };
