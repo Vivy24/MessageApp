@@ -3,7 +3,7 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import style from "./ChatPage.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Chat from "../components/home/chat/Chat";
 import { useSelector, useDispatch } from "react-redux";
 import { addMessageToDB } from "../services/helpers/message";
@@ -22,28 +22,15 @@ import { useNavigate } from "react-router-dom";
 
 import { Timestamp } from "firebase/firestore";
 
-import { useValidInput } from "../hooks/useValidInput";
-
 const ChatPage = (props) => {
   const { height, width } = useWindowDimensions();
   const user = useSelector((state) => state.user);
   const chat = useSelector((state) => state.chat);
 
-  const [message, setMessage] = useState();
-  const [chatIDState, setChatID] = useState();
-
   const db = getDatabase();
   const refer = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const {
-    value: enteredMessage,
-    empty: messageEmpty,
-    valueChangeHandler: messageChangeHandler,
-    inputBlurHandler: messageBlurHandler,
-    reset: resetmessage,
-  } = useValidInput(() => {});
 
   useEffect(() => {
     const fetchChat = async (chatID) => {
@@ -104,7 +91,7 @@ const ChatPage = (props) => {
     const receiver = chat.members.find((id) => {
       return id !== sender;
     });
-    console.log(refer.current.innerText.length);
+
     if (refer.current.innerText.length === 0) {
       return;
     }

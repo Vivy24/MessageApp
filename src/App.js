@@ -1,5 +1,4 @@
 import "./App.css";
-import NavBar from "./components/NavBar";
 import "./services/firebase";
 import { Routes, Route } from "react-router-dom";
 

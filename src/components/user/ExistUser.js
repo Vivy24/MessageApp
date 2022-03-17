@@ -36,7 +36,7 @@ const ExistUser = (props) => {
       <p>{receiverName}</p>
       <p style={{ wordWrap: "break-word" }} className="text-xs	">
         {props.lastMessage
-          ? props.lastMessage.length > 30
+          ? props.lastMessage.length > 33
             ? `${props.lastMessage.slice(0, 30)}...`
             : props.lastMessage
           : "No messages"}

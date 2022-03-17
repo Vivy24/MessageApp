@@ -10,7 +10,7 @@ const Authorize = (props) => {
 
       <div className="bg-slate-300 w-1"></div>
       <div className="w-4/5">
-        <ChatPage chatID={props.chatID} updated={props.updateFunc} />
+        <ChatPage chatID={props.chatID} />
       </div>
     </div>
   );

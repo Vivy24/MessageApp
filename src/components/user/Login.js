@@ -15,6 +15,7 @@ const Login = () => {
         "guest@gmail.com",
         "Guest123."
       ).then((userCredential) => {
+        // get the user
         const user = userCredential.user;
 
         navigate("/");

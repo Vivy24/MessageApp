@@ -1,5 +1,4 @@
 import Register from "../components/user/Register";
-import { Fragment } from "react";
 import NavBar from "../components/NavBar";
 
 const RegisterPage = () => {

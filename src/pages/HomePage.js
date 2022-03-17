@@ -14,10 +14,6 @@ const HomePage = () => {
   const params = useParams();
   const chatID = params.chatID;
 
-  const updated = (message) => {
-    console.log(message);
-  };
-
   useEffect(() => {
     const auth = getAuth();
 
@@ -45,11 +41,7 @@ const HomePage = () => {
         <NavBar auth={isLoggedIn} />
       </div>
       <div className="flex flex-grow">
-        {isLoggedIn ? (
-          <Authorize chatID={chatID} updateFunc={updated} />
-        ) : (
-          <NotAuthorize />
-        )}
+        {isLoggedIn ? <Authorize chatID={chatID} /> : <NotAuthorize />}
       </div>
     </div>
   );

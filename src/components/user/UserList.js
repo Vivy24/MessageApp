@@ -1,7 +1,7 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, Fragment, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import UserName from "./User";
 import { filerDataByKey } from "../../services/helpers/user";
 import { createNewChat } from "../../services/helpers/chat";
