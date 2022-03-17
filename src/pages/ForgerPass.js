@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 
 const ForgerPass = () => {
   return (
-    <div>
+    <div className="h-screen overflow-hidden">
       <NavBar />
       <ForgetPassword />
     </div>
