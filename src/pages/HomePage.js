@@ -36,7 +36,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen bg-slate-200">
+    <div className="flex flex-col h-screen ">
       <div>
         <NavBar auth={isLoggedIn} />
       </div>
