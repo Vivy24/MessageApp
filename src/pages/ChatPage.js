@@ -125,7 +125,7 @@ const ChatPage = (props) => {
   return (
     <div className="flex flex-col h-full justify-center items-center">
       <div
-        className="mb-auto w-full"
+        className="mb-auto w-full bg-slate-200"
         style={{
           overflowY: "auto",
           flex: "1 1 auto",
