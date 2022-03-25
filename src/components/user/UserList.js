@@ -33,8 +33,8 @@ const UserList = () => {
   useEffect(() => {
     const queryChat = async () => {
       const findChat = query(ref(db, "chats"), orderByValue("members"));
-
       await onValue(findChat, (snapshot) => {
+        console.log(snapshot);
         let sortedchat = [];
         const chatList = [];
         snapshot.forEach((value) => {

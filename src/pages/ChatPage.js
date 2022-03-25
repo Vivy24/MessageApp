@@ -84,7 +84,7 @@ const ChatPage = (props) => {
       });
     };
     fetchChat(props.chatID);
-  }, [props.chatID]);
+  }, [props]);
 
   const addMessage = () => {
     const sender = user.userID;
