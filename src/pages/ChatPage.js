@@ -84,7 +84,7 @@ const ChatPage = (props) => {
       });
     };
     fetchChat(props.chatID);
-  }, [props]);
+  }, [props.chatID]);
 
   const addMessage = () => {
     const sender = user.userID;
@@ -125,7 +125,7 @@ const ChatPage = (props) => {
   return (
     <div className="flex flex-col h-full justify-center items-center">
       <div
-        className="mb-auto w-full"
+        className="mb-auto w-full "
         style={{
           overflowY: "auto",
           flex: "1 1 auto",

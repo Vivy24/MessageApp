@@ -41,7 +41,6 @@ const Chat = () => {
       style={{
         maxHeight: "200px",
         margin: "0 auto 1rem",
-        maxWidth: "1500px",
         padding: "0.10rem 0.75rem",
       }}
     >
