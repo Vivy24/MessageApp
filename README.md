@@ -1,14 +1,35 @@
-# What is it?
+# Message App - Sending Messages To Other People
 
-It is the basic message App made from React, Firebase (realtime Database and authentication). 
-It has some funtions:
-  #### Sending and receiving message from people
-  #### Find people based on their display name
-  #### Review old message or old chats
+# Website Address (Hosted By Firebase)
+https://chatfire-c0870.web.app/
 
-# Deployment
+# Languages: 
+    1. Front-End: Javascript, HTML, CSS, ReactJS
+    2. Application State: Redux
+    3. Backend: Firebase
+    
+# Usage:
+    1. Sending and receiving message from people
+    2. Find people based on their display name
+    3. Review old messages or old chats
+    
+     
+# Showcase:
 
-This project was deployed by Firebase 
-You can see the final product: https://chatfire-c0870.web.app/ 
+## Landing Page
+
+![Landing](messageApp/landing.png)
+
+## Login && Register
+
+![Log-In](messageApp/login.png)
+![Register](messageApp/register.png)
+
+
+## Homepage(Signed In)
+
+![Homepage(Signed In)](messageApp/chat.png)
+
+
 
 
